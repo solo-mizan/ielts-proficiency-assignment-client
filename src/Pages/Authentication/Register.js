@@ -4,6 +4,7 @@ import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle, u
 import Loading from '../Shared/Loading';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import useToken from '../../Hooks/useToken';
 
 const Register = () => {
     const nameRef = useRef('');
@@ -23,6 +24,7 @@ const Register = () => {
 
     const [updateProfile, updating, error] = useUpdateProfile(auth);
 
+    const [token] = useToken(user1 || user2);
 
     const handleGoogleSignIn = () => {
         signInWithGoogle();
@@ -30,12 +32,11 @@ const Register = () => {
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-        const displayName = nameRef.current.value;
+        const name = nameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        createUserWithEmailAndPassword(email, password);
-        updateProfile({ displayName });
-
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
     }
 
     if (loading2 || loading1) {
@@ -45,7 +46,6 @@ const Register = () => {
     if (user1 || user2) {
         navigate(from, { replace: true });
     }
-
 
     return (
         <div>

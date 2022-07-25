@@ -21,7 +21,7 @@ function App() {
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='/dashboard' element={<RequireAuth><Dashboard /></RequireAuth>} />
-        <Route path='/manage-profile' element={<ManageProfile></ManageProfile>}></Route>
+        <Route path='/manage-profile' element={<RequireAuth><ManageProfile /></RequireAuth>} />
         <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
       <Footer></Footer>
