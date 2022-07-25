@@ -29,6 +29,7 @@ const Login = () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         await signInWithEmailAndPassword(email, password);
+        console.log(email, password);
     }
 
     if (loading1 || loading2) {
@@ -84,9 +85,9 @@ const Login = () => {
                             <a href="#" className="text-xs text-gray-500 dark:text-gray-300 hover:underline">Forget Password?</a>
                         </div>
 
-                        <input ref={passwordRef} id="loggingPassword" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" />
+                        <input ref={passwordRef} id="loggingPassword" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="text" />
                     </div>
-
+                    <p>{error1 || error2}</p>
                     <div className="mt-8">
                         <button onClick={handleUserSignIn} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                             Login

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuthState, useUpdatePassword } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 const ManageProfile = () => {
@@ -10,24 +11,37 @@ const ManageProfile = () => {
     const userNameRef = useRef('');
     const [user, loading, error1] = useAuthState(auth);
 
+    useEffect(() => {
+        fetch(`http://localhost:5000/user/${user.email}`)
+            .then(res => res.json())
+            .then(data => console.log(data));
+    }, [])
+
     const handlePassword = async () => {
         const password = passwordRef.current.value;
         console.log(password);
         await updatePassword(password);
-        alert('Updated password');
+        toast.success('Password updated');
     }
 
     const handleUserName = async () => {
-
-    }
-
-    useEffect(() => {
-        fetch(`http://localhost:5000/user/${user.email}`)
+        const userName = userNameRef.current.value;
+        console.log(userName);
+        const body = { name: userName };
+        fetch(`http://localhost:5000/profile/${user.email}`, {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(body)
+        })
             .then(res => res.json())
             .then(data => {
-                setStoredData(data);
+                if (!data.modifiedCount) {
+                    toast.success("username updated successfully", { id: "username" });
+                }
             })
-    }, [user])
+    }
 
     return (
         <div className='text-center'>
@@ -49,7 +63,7 @@ const ManageProfile = () => {
                                     :
                                     <td>{user?.displayName}</td>
                             }
-                            <td>{user?.displayName}</td>
+                            <td>{user?.email}</td>
                             <td><label htmlFor="my-modal-4" class="btn btn-xs modal-button">Add username</label></td>
                             <td><label htmlFor="my-modal-3" class="btn btn-xs modal-button">Change Password</label></td>
                         </tr>
