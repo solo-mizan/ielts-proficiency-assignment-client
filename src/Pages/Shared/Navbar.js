@@ -31,7 +31,7 @@ const Navbar = () => {
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal p-0">
                     <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
-                    <li><NavLink to={'/manage-profile'}>Manage Profile</NavLink></li>
+                    <li><NavLink to={'/manage-profile'} className="ml-4">Manage Profile</NavLink></li>
                 </ul>
             </div>
             <div class="navbar-end">
