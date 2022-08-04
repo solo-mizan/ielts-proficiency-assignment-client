@@ -38,7 +38,7 @@ const ManageProfile = () => {
             .then(res => res.json())
             .then(data => {
                 if (!data.modifiedCount) {
-                    toast.success("username updated successfully", { id: "username" });
+                    toast.success("username updated successfully");
                 }
             })
     }

@@ -44,15 +44,19 @@ const TodoList = () => {
     }
 
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 p-2 mx-auto text-center'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 p-2 text-center'>
             {
                 todo.map(t => <div key={t._id}>
-                    <div class="card w-96 bg-blue-900 text-primary-content">
+                    <div class="card w-96 bg-blue-900 text-primary-content mx-auto">
                         <div class="card-body">
                             <h2 class="card-title">{t.name}</h2>
+
                             <p>{t.description}</p>
-                            <div className='card-actions justify-evenly'>
+
+                            <div className='card-actions justify-around mt-10'>
+
                                 <button onClick={() => handleComplete(t._id, t.name, t.description)} className={t.isComplete ? 'btn text-white btn-disabled' : 'btn text-white'}>{t.isComplete ? 'Completed' : 'Complete'}</button>
+
                                 <button onClick={() => handleDelete(t._id)} class="btn btn-error">Delete</button>
                             </div>
                         </div>
